@@ -1,2 +1,16 @@
 
 New DOC Document.doc
+res/books.txt
+Readme.txt
+src/module-info.java
+bin/sait/bms/problemdomain/Periodical.class
+bin/sait/bms/problemdomain/Paperback.class
+bin/sait/bms/problemdomain/Cookbook.class
+bin/sait/bms/problemdomain/ChildrensBook.class
+bin/sait/bms/problemdomain/Book.class
+bin/sait/bms/managers/Manager.class
+bin/sait/bms/application/Driver.class
+bin/module-info.class
+.project
+.idea/misc.xml
+.classpath
