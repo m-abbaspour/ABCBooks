@@ -27,6 +27,31 @@ public class Periodical extends Book {
 	public char getFrequency() {
 		return frequency;
 	}
+	
+	public String getLongFrequency() {
+		switch (Character.toUpperCase(frequency)) {
+		case 'D':
+			return "Daily";
+		case 'W':
+			return "Weekly";
+		case 'M':
+			return "Monthly";
+		case 'B':
+			return "Bi-monthly";
+		case 'Q':
+			return "Quarterly";
+		default:
+			return ("Wrong type of format entred.");
+		}
+
+	}
+
+	public String toStringPrint() {
+		return "ISBN:                 " + super.getIsbn() + "\r\n" + "Call Number:          " + super.getCallNumber()
+				+ "\r\n" + "Available:            " + super.getAvailable() + "\r\n" + "Total:                "
+				+ super.getTotal() + "\r\n" + "Title:                " + super.getTitle() + "\r\n" + "Frequency:            "
+				+ getLongFrequency() + "\r\n";
+	}
 
 	public void setFrequency(char frequency) {
 		this.frequency = frequency;
@@ -35,7 +60,19 @@ public class Periodical extends Book {
 
 	@Override
 	public String toString() {
-		return "Periodical [frequency=" + frequency + ", toString()=" + super.toString() + "]";
+		return
+		super.getIsbn()+
+		";"+
+		super.getCallNumber()+
+		';'+
+		super.getAvailable()+
+		';'+
+		super.getTotal()+
+		';'+
+		super.getTitle()+
+		';'+
+		getFrequency();
+
 	}
 
 }

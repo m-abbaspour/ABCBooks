@@ -6,7 +6,7 @@ package sait.bms.problemdomain;
 /**
  * @author abbas
  *
- * 3:59:19 p.m. Feb. 2, 2022
+ *         3:59:19 p.m. Feb. 2, 2022
  */
 public class ChildrensBook extends Book {
 
@@ -42,13 +42,36 @@ public class ChildrensBook extends Book {
 		return format;
 	}
 
+	public String getLongFormat() {
+		switch (Character.toUpperCase(format)) {
+		case 'P':
+			return "Picture book";
+		case 'E':
+			return "Early Readers";
+		case 'C':
+			return "Chapter book";
+		default:
+			return ("Wrong type of format entred.");
+		}
+
+	}
+
+	public String toStringPrint() {
+		return "ISBN:                 " + super.getIsbn() + "\r\n" + "Call Number:          " + super.getCallNumber()
+				+ "\r\n" + "Available:            " + super.getAvailable() + "\r\n" + "Total:                "
+				+ super.getTotal() + "\r\n" + "Title:                " + super.getTitle() + "\r\n"
+				+ "Author:               " + getAuthor() + "\r\n" + "Format:               " + getLongFormat() + "\r\n";
+	}
+
 	public void setFormat(char format) {
 		this.format = format;
 	}
 
 	@Override
 	public String toString() {
-		return "ChildrensBook [author=" + author + ", format=" + format + ", toString()=" + super.toString() + "]";
+		return super.getIsbn() + ";" + super.getCallNumber() + ';' + super.getAvailable() + ';' + super.getTotal() + ';'
+				+ super.getTitle() + ';' + getAuthor() + ';' + getFormat();
+
 	}
 
 }

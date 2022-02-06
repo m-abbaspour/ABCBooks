@@ -1,10 +1,9 @@
 package sait.bms.application;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.util.Scanner;
 
 import sait.bms.managers.Manager;
-import sait.bms.problemdomain.Book;
 
 /**
  * Driver class for the ABCBooks Assignment
@@ -15,14 +14,17 @@ import sait.bms.problemdomain.Book;
 public class Driver {
 
 	public static void main(String[] args) {
-		
+		Scanner sc = new Scanner(System.in);
+
 		try {
-			Manager m = new Manager();
+			Manager m = new Manager(sc);
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		sc.close();
 		
 	}
 }
