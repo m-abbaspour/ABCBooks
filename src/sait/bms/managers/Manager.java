@@ -14,19 +14,25 @@ import sait.bms.problemdomain.Paperback;
 import sait.bms.problemdomain.Periodical;
 
 /**
- * checkoutBook() findBooksbyTitle() displayBooksbyType()
- * produceRandomBookList() loadBooksListFromFile() menu() SaveAndExit()
+ * Manager class to display the following: Displays the menu of options Checkout
+ * a Book Find Books by Title Display Books by Type Produces a Random Book List
+ * Saves changes & Exits the program
  * 
- * @author abbas
+ * @author Mahdiyeh abbaspour
  *
- * 5:56:19 a.m. Feb. 5, 2022
+ *         5:56:19 a.m. Feb. 5, 2022
  */
 public class Manager {
 
-	ArrayList<Book> books = new ArrayList<Book>();
+	private ArrayList<Book> books = new ArrayList<Book>();
 	private final static String FILENAME = "res/books.txt";
 
-	//The Manager Class Constructor
+	/**
+	 * Creates a Manger object.
+	 * 
+	 * @param sc which is passed to the menu()
+	 * @throws FileNotFoundException if there are any problems opening file.
+	 */
 	public Manager(Scanner sc) throws FileNotFoundException {
 		loadBooksListFromFile();
 		menu(sc);
@@ -35,16 +41,16 @@ public class Manager {
 	/**
 	 * Displays the menu of options
 	 * 
-	 * @return option chosen by user
-	 * @throws FileNotFoundException
+	 * @param sc standard scanner object, which is passed to all of the methods
+	 * @throws FileNotFoundException if the file cannot be found
 	 */
 	public void menu(Scanner sc) throws FileNotFoundException {
-		System.out.print("Welcome in ABC Book Company: How May We Assist You?\r\n" + "1	Checkout Book\r\n"
-				+ "2	Find Books by Title\r\n" + "3	Display Books by Type\r\n" + "4	Produce Random Book List\r\n"
-				+ "5	Save & Exit\r\n" + "\r\n" + "Enter option: " + "");
-
-		int option = sc.nextInt();
+		int option = 0;
 		while (option != 5) {
+			System.out.print("\r\nWelcome in ABC Book Company: How May We Assist You?\r\n" + "1	Checkout Book\r\n"
+					+ "2	Find Books by Title\r\n" + "3	Display Books by Type\r\n" + "4	Produce Random Book List\r\n"
+					+ "5	Save & Exit\r\n" + "\r\n" + "Enter option: " + "");
+			option = sc.nextInt();
 			switch (option) {
 			case 1:
 				CheckoutBook(sc);
@@ -59,8 +65,6 @@ public class Manager {
 				produceRandomBookList(sc);
 				break;
 			}
-			System.out.println("Choose an option");
-			option = sc.nextInt();
 		}
 		System.out.println("Thanks for being with us!\r\nHave a nice day!");
 		SaveAndExit();
@@ -70,7 +74,7 @@ public class Manager {
 	 * Loads the books from an input file into a list.
 	 * 
 	 * @throws FileNotFoundException if file cannot be found.
-	 * @return Arraylist loaded from the txt file
+	 * @return Arraylist loaded from the txt file containing the books
 	 */
 	public ArrayList<Book> loadBooksListFromFile() throws FileNotFoundException {
 		Scanner in = new Scanner(new File(FILENAME));
@@ -112,15 +116,15 @@ public class Manager {
 		return books;
 	}
 
-	
-
 	/**
-	 * allows a patron to checkout a book
+	 * Allows a patron to checkout a book
+	 * 
+	 * @param sc to read the ISBN of the book from the reader
 	 */
 	public void CheckoutBook(Scanner sc) {
 
 		// prompt the user to enter the ISBN of the book
-		System.out.println("Enter ISBN of book: ");
+		System.out.print("Enter ISBN of book: ");
 		Long isbn = sc.nextLong();
 		// find the book using the ISBN the user entered
 		for (Book book : books) {
@@ -148,24 +152,17 @@ public class Manager {
 	}
 
 	/**
-	 * prompts the user patron to enter a title, performs a case-insensitive search
-	 * of books that containing the inputted title, and displays them.
+	 * Prompts the user patron to enter a title, performs a case-insensitive search
+	 * of books that containing the entered title, and displays them.
+	 * 
+	 * @param sc to read the title of the book from the user
 	 */
 	public void findBooksbyTitle(Scanner sc) {
-		System.out.println("Enter title to search for: ");
+		System.out.print("Enter title to search for: ");
 		String search = sc.next();
 		for (Book book : books) {
 			if (book.getTitle().toLowerCase().contains(search.toLowerCase())) {
-				if (book instanceof ChildrensBook) {
-					System.out.println(((ChildrensBook) book).toStringPrint());
-				} else if (book instanceof Cookbook) {
-					System.out.println(((Cookbook) book).toStringPrint());
-				} else if (book instanceof Paperback) {
-					System.out.println(((Paperback) book).toStringPrint());
-				} else {
-					System.out.println(((Periodical) book).toStringPrint());
-
-				}
+				System.out.println(book.toString());
 			}
 		}
 	}
@@ -175,13 +172,13 @@ public class Manager {
 	 * also enter a format, diet, genre, or frequency (depending on the type of
 	 * book) and the book list will be narrowed down further.
 	 * 
-	 * @param 
+	 * @param sc to read the inputs from the user
 	 */
 	public void displayBooksbyType(Scanner sc) {
 
 		System.out.println("#	Type\r\n" + "1	Children's Books\r\n" + "2	Cookbooks\r\n" + "3	Paperbacks\r\n"
 				+ "4	Periodicals\r\n" + "");
-		System.out.println("Enter type of book: ");
+		System.out.print("Enter type of book: ");
 		int typeOfBook = sc.nextInt();
 
 		switch (typeOfBook) {
@@ -194,7 +191,7 @@ public class Manager {
 			for (Book book : books) {
 				if (book instanceof ChildrensBook) {
 					if (((ChildrensBook) book).getFormat() == format.toUpperCase().charAt(0)) {
-						System.out.println(((ChildrensBook) book).toStringPrint());
+						System.out.println(((ChildrensBook) book).toString());
 					}
 				}
 			}
@@ -209,14 +206,13 @@ public class Manager {
 			for (Book book : books) {
 				if (book instanceof Cookbook) {
 					if (((Cookbook) book).getDiet() == diet.toUpperCase().charAt(0)) {
-						System.out.println(((Cookbook) book).toStringPrint());
+						System.out.println(((Cookbook) book).toString());
 					}
 				}
 			}
 			break;
 		case 3:
 			// 3 Paperbacks
-			// prompt the user to enter a genre
 			System.out.println(
 					"Enter a Genre (A for Adventure, D for Drama, E for Education, C for Classic, F for Fantasy, or S for Science Fiction): ");
 			String genre = sc.next();
@@ -224,10 +220,11 @@ public class Manager {
 			for (Book book : books) {
 				if (book instanceof Paperback) {
 					if (((Paperback) book).getGenre() == genre.toUpperCase().charAt(0)) {
-						System.out.println(((Paperback) book).toStringPrint());
+						System.out.println(((Paperback) book).toString());
 					}
 				}
 			}
+			break;
 		case 4:
 			// 4 Periodicals
 			System.out.println(
@@ -237,7 +234,7 @@ public class Manager {
 			for (Book book : books) {
 				if (book instanceof Periodical) {
 					if (((Periodical) book).getFrequency() == frequency.toUpperCase().charAt(0)) {
-						System.out.println(((Periodical) book).toStringPrint());
+						System.out.println(((Periodical) book).toString());
 					}
 				}
 			}
@@ -248,29 +245,23 @@ public class Manager {
 		}
 
 	}
-	
+
 	/**
+	 * Prompts the user to enter a number and the program displays that number of
+	 * random books. The books can be any type.
 	 * 
-	 * @param sc
+	 * @param sc to read the inputs from the user
 	 */
 	public void produceRandomBookList(Scanner sc) {
 		// TODO Auto-generated method stub
 		Collections.shuffle(books);
 		System.out.print("Enter number of books: ");
 		int randomBooks = sc.nextInt();
-		for(int i=0; i<randomBooks; i++) {
-			if (books.get(i) instanceof ChildrensBook) {
-				System.out.println(((ChildrensBook) books.get(i)).toStringPrint());
-			} else if (books.get(i) instanceof Cookbook) {
-				System.out.println(((Cookbook) books.get(i)).toStringPrint());
-			} else if (books.get(i) instanceof Paperback) {
-				System.out.println(((Paperback) books.get(i)).toStringPrint());
-			} else {
-				System.out.println(((Periodical) books.get(i)).toStringPrint());
-			}
+		for (int i = 0; i < randomBooks; i++) {
+			System.out.println(books.get(i).toString());
 		}
 	}
-	
+
 	/**
 	 * Saves the changes done throughout the program
 	 * 
@@ -279,7 +270,7 @@ public class Manager {
 	public void SaveAndExit() throws FileNotFoundException {
 		PrintWriter printWriter = new PrintWriter(FILENAME);
 		for (Book book : books) {
-			printWriter.print(book.toString());
+			printWriter.print(book.toStringPrint());
 			printWriter.println();
 		}
 		printWriter.close();
