@@ -119,6 +119,7 @@ public class Cookbook extends Book {
 	 * 
 	 * @return String appropriate for printing the values in the books.txt file
 	 */
+	@Override
 	public String toStringPrint() {
 		return super.getIsbn() + ";" + super.getCallNumber() + ';' + super.getAvailable() + ';' + super.getTotal() + ';'
 				+ super.getTitle() + ';' + getPublisher() + ';' + getDiet();
@@ -127,6 +128,7 @@ public class Cookbook extends Book {
 
 	@Override
 	public String toString() {
+		
 		return "ISBN:                 " + super.getIsbn() + "\r\n" + "Call Number:          " + super.getCallNumber()
 				+ "\r\n" + "Available:            " + super.getAvailable() + "\r\n" + "Total:                "
 				+ super.getTotal() + "\r\n" + "Title:                " + super.getTitle() + "\r\n"

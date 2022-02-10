@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import sait.bms.problemdomain.Book;
@@ -47,23 +48,37 @@ public class Manager {
 	public void menu(Scanner sc) throws FileNotFoundException {
 		int option = 0;
 		while (option != 5) {
-			System.out.print("\r\nWelcome in ABC Book Company: How May We Assist You?\r\n" + "1	Checkout Book\r\n"
-					+ "2	Find Books by Title\r\n" + "3	Display Books by Type\r\n" + "4	Produce Random Book List\r\n"
-					+ "5	Save & Exit\r\n" + "\r\n" + "Enter option: " + "");
-			option = sc.nextInt();
-			switch (option) {
-			case 1:
-				CheckoutBook(sc);
-				break;
-			case 2:
-				findBooksbyTitle(sc);
-				break;
-			case 3:
-				displayBooksbyType(sc);
-				break;
-			case 4:
-				produceRandomBookList(sc);
-				break;
+			try {
+				System.out.print("\r\nWelcome in ABC Book Company: How May We Assist You?\r\n" + "1	Checkout Book\r\n"
+						+ "2	Find Books by Title\r\n" + "3	Display Books by Type\r\n"
+						+ "4	Produce Random Book List\r\n" + "5	Save & Exit\r\n" + "\r\n" + "Enter option: " + "");
+
+				option = sc.nextInt();
+				switch (option) {
+				case 1:
+					CheckoutBook(sc);
+					break;
+				case 2:
+					findBooksbyTitle(sc);
+					break;
+				case 3:
+					displayBooksbyType(sc);
+					break;
+				case 4:
+					produceRandomBookList(sc);
+					break;
+				
+				default:
+					System.out.println("Wrong type of input. try again.");	
+
+				}
+			} catch (Exception e) {
+				sc.next();
+				if (e instanceof InputMismatchException)
+				   System.out.println("Wrong type of input. try again.");
+				else 
+					System.out.println("An unknown Exception Occure. please report it. :"+e.getMessage());
+
 			}
 		}
 		System.out.println("Thanks for being with us!\r\nHave a nice day!");
@@ -125,7 +140,12 @@ public class Manager {
 
 		// prompt the user to enter the ISBN of the book
 		System.out.print("Enter ISBN of book: ");
-		Long isbn = sc.nextLong();
+		String isbnString=sc.next();
+		while (isbnString.length()!=13 || !isbnString.matches("(\\d*)")) {
+			System.out.println("Wrong ISBN Enterd! please try again.");
+			isbnString=sc.next();
+		}
+		Long isbn = new Long(isbnString);
 		// find the book using the ISBN the user entered
 		for (Book book : books) {
 			if (book.getIsbn() == isbn) {
@@ -179,14 +199,20 @@ public class Manager {
 		System.out.println("#	Type\r\n" + "1	Children's Books\r\n" + "2	Cookbooks\r\n" + "3	Paperbacks\r\n"
 				+ "4	Periodicals\r\n" + "");
 		System.out.print("Enter type of book: ");
-		int typeOfBook = sc.nextInt();
+		String typeOfBook = sc.next();
 
 		switch (typeOfBook) {
 
-		case 1:
+		case "1":
 			// 1 Children's Books
 			System.out.println("Enter a format ( P for Picture book, E for Early Readers, or C for Chapter book): ");
 			String format = sc.next();
+			while (!format.equalsIgnoreCase("p") 
+					&&!format.equalsIgnoreCase("e") 
+					&&!format.equalsIgnoreCase("c")){
+				System.out.println("wrong type entred. Please try again.");
+				format = sc.next();
+			}
 			System.out.println("\nMatching books:");
 			for (Book book : books) {
 				if (book instanceof ChildrensBook) {
@@ -197,11 +223,19 @@ public class Manager {
 			}
 			break;
 
-		case 2:
+		case "2":
 			// 2 Cookbook
 			System.out.println(
 					"Enter a Diet (D for Diabetic, V for Vegetarian, G for Gluten-free, I for International, or N for None): ");
 			String diet = sc.next();
+			while (!diet.equalsIgnoreCase("v") 
+					&&!diet.equalsIgnoreCase("d") 
+					&&!diet.equalsIgnoreCase("g") 
+					&&!diet.equalsIgnoreCase("i") 
+					&&!diet.equalsIgnoreCase("n")){
+				System.out.println("wrong type entred. Please try again.");
+				diet = sc.next();
+			}
 			System.out.println("\nMatching books:");
 			for (Book book : books) {
 				if (book instanceof Cookbook) {
@@ -211,11 +245,20 @@ public class Manager {
 				}
 			}
 			break;
-		case 3:
+		case "3":
 			// 3 Paperbacks
 			System.out.println(
 					"Enter a Genre (A for Adventure, D for Drama, E for Education, C for Classic, F for Fantasy, or S for Science Fiction): ");
 			String genre = sc.next();
+			while (!genre.equalsIgnoreCase("a") 
+					&&!genre.equalsIgnoreCase("d") 
+					&&!genre.equalsIgnoreCase("e") 
+					&&!genre.equalsIgnoreCase("c") 
+					&&!genre.equalsIgnoreCase("s") 
+					&&!genre.equalsIgnoreCase("f")) {
+				System.out.println("wrong type entred. Please try again.");
+				genre = sc.next();
+			}
 			System.out.println("\nMatching books:");
 			for (Book book : books) {
 				if (book instanceof Paperback) {
@@ -225,11 +268,19 @@ public class Manager {
 				}
 			}
 			break;
-		case 4:
+		case "4":
 			// 4 Periodicals
 			System.out.println(
 					"Enter a frequency (D for Daily, W for Weekly, M for Monthly, B for Biweekly, or Q for Quarterly): ");
 			String frequency = sc.next();
+			while (!frequency.equalsIgnoreCase("d") 
+					&&!frequency.equalsIgnoreCase("w") 
+					&&!frequency.equalsIgnoreCase("m") 
+					&&!frequency.equalsIgnoreCase("b") 
+					&&!frequency.equalsIgnoreCase("q")) {
+				System.out.println("wrong type entred. Please try again.");
+				frequency = sc.next();
+			}
 			System.out.println("\nMatching books:");
 			for (Book book : books) {
 				if (book instanceof Periodical) {
@@ -256,8 +307,13 @@ public class Manager {
 		// TODO Auto-generated method stub
 		Collections.shuffle(books);
 		System.out.print("Enter number of books: ");
-		int randomBooks = sc.nextInt();
-		for (int i = 0; i < randomBooks; i++) {
+		String randomBooksString=sc.next();
+		while ( !randomBooksString.matches("(\\d*)")) {
+			System.out.println("Wrong Number of Books Enterd! please try again.");
+			randomBooksString=sc.next();
+		}
+		int randomBooks = Integer.parseInt(randomBooksString);
+		for (int i = 0; i < randomBooks && i< books.size(); i++) {
 			System.out.println(books.get(i).toString());
 		}
 	}

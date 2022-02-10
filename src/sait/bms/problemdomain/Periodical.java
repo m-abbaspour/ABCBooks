@@ -98,6 +98,7 @@ public class Periodical extends Book {
 	 * 
 	 * @return String appropriate for printing the values in the books.txt file
 	 */
+	@Override
 	public String toStringPrint() {
 		return super.getIsbn() + ";" + super.getCallNumber() + ';' + super.getAvailable() + ';' + super.getTotal() + ';'
 				+ super.getTitle() + ';' + getFrequency();
