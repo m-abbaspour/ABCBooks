@@ -67,18 +67,19 @@ public class Manager {
 				case 4:
 					produceRandomBookList(sc);
 					break;
-				
+				case 5:
+					break;
 				default:
 					System.out.println("Wrong type of input. try again.");	
 
 				}
 			} catch (Exception e) {
 				sc.next();
-				if (e instanceof InputMismatchException)
+				if (e instanceof InputMismatchException) {
 				   System.out.println("Wrong type of input. try again.");
-				else 
+				} else {
 					System.out.println("An unknown Exception Occure. please report it. :"+e.getMessage());
-
+				}
 			}
 		}
 		System.out.println("Thanks for being with us!\r\nHave a nice day!");

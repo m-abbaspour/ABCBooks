@@ -65,7 +65,7 @@ public class Book {
 	}
 
 	/**
-	 * seta the call number to the call number provided
+	 * sets the call number to the call number provided
 	 * @param callNumber the call number to set
 	 */
 	public void setCallNumber(String callNumber) {
