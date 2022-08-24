@@ -17,14 +17,6 @@ To run the program run the jar file
 
 ![image](https://user-images.githubusercontent.com/89539144/186452537-c454c3f4-f619-46ba-aaa2-ebf0e29d5118.png)
 
---------
-#### Authors
-Mahdiyeh Abbaspour
-
-Travis Milne
-
-Kyle Helmer
-
 --------------
 
 Created: February 2022
